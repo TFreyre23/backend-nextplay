@@ -6,6 +6,13 @@ const router = express.Router();
 
 router.post('/recommend', async (req, res) => {
   try {
+    const users = await User.findAll();
+
+        // Log each user to the console
+        console.log("All users in the database:");
+        users.forEach((user, index) => {
+            console.log(`User ${index + 1}:`, user.toJSON());
+        });
     const auth0Id = req.auth.sub;
     console.log("auth0Id:", auth0Id);
     const user = await User.findOne({ where: { auth0Id } });
